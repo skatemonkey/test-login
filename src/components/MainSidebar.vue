@@ -3,14 +3,15 @@ import { Home, Table2Icon, LogOut } from 'lucide-vue-next'
 import SidebarButton from '@/components/common/SidebarButton.vue'
 import { useAuthStore } from '@/stores/auth'
 import { useRouter } from 'vue-router'
+import { ROUTES } from '@/constants/routes'
 
 const authStore = useAuthStore()
 const router = useRouter()
 
 const navItems = [
-  { to: '/', icon: Home, label: 'Home' },
-  { to: '/table1', icon: Table2Icon, label: 'Table 1' },
-  { to: '/table2', icon: Table2Icon, label: 'Table 2' },
+  { to: ROUTES.HOME, icon: Home, label: 'Home' },
+  { to: ROUTES.TABLE1, icon: Table2Icon, label: 'Table 1' },
+  { to: ROUTES.TABLE2, icon: Table2Icon, label: 'Table 2' },
 ]
 
 function handleLogout() {

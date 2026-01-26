@@ -1,28 +1,25 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '@/stores/auth'
+import { ROUTES } from '@/constants/routes.ts'
 
 const router = createRouter({
   history: createWebHistory(),
   routes: [
     {
-      path: '/login',
-      name: 'login',
+      path: ROUTES.LOGIN,
       component: () => import('@/pages/LoginPage.vue'),
       meta: { public: true },
     },
     {
-      path: '/',
-      name: 'home',
+      path: ROUTES.HOME,
       component: () => import('@/pages/HomePage.vue'),
     },
     {
-      path: '/table1',
-      name: 'table1',
+      path: ROUTES.TABLE1,
       component: () => import('@/pages/Table1Page.vue'),
     },
     {
-      path: '/table2',
-      name: 'table2',
+      path: ROUTES.TABLE2,
       component: () => import('@/pages/Table2Page.vue'),
     },
   ],
@@ -33,12 +30,12 @@ router.beforeEach((to) => {
 
   if (!to.meta.public && !auth.isAuthenticated()) {
     // Add ()
-    return '/login'
+    return ROUTES.LOGIN
   }
 
-  if (to.path === '/login' && auth.isAuthenticated()) {
+  if (to.path === ROUTES.LOGIN && auth.isAuthenticated()) {
     // Add ()
-    return '/'
+    return ROUTES.HOME
   }
 })
 
