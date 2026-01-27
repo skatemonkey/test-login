@@ -16,7 +16,7 @@ async function login() {
   error.value = ''
   try {
     const { data } = await authService.login(username.value, password.value)
-    auth.setToken(data.token)
+    auth.setAuth(data.access_token, data.permissions)
     await nextTick() // Wait for reactivity to update
     await router.push('/')
   } catch {

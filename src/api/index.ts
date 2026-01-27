@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const apiClient = axios.create({
-  baseURL: 'http://localhost:5000/auth', // Change this
+  baseURL: 'http://localhost:5001/auth', // Change this
 })
 
 apiClient.interceptors.request.use((config) => {
