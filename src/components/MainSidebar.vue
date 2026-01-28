@@ -1,18 +1,30 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import { Home, Table2Icon, LogOut } from 'lucide-vue-next'
 import SidebarButton from '@/components/common/SidebarButton.vue'
 import { useAuthStore } from '@/stores/auth'
 import { useRouter } from 'vue-router'
 import { ROUTES } from '@/constants/routes'
+import { PERM, type Permission } from '@/constants/permissions'
 
 const authStore = useAuthStore()
 const router = useRouter()
 
 const navItems = [
   { to: ROUTES.HOME, icon: Home, label: 'Home' },
-  { to: ROUTES.TABLE1, icon: Table2Icon, label: 'Table 1' },
-  { to: ROUTES.TABLE2, icon: Table2Icon, label: 'Table 2' },
+  { to: ROUTES.TABLE1, icon: Table2Icon, label: 'Table 1', permission: PERM.PAGE1_VIEW },
+  { to: ROUTES.TABLE2, icon: Table2Icon, label: 'Table 2', permission: PERM.PAGE2_VIEW },
+  { to: ROUTES.TABLE3, icon: Table2Icon, label: 'Table 3', permission: PERM.PAGE3_VIEW },
+  { to: ROUTES.TABLE4, icon: Table2Icon, label: 'Table 4', permission: PERM.PAGE4_VIEW },
 ]
+
+const userPerms = computed(
+  () => JSON.parse(localStorage.getItem('permissions') || '[]') as Permission[],
+)
+
+const visibleNavItems = computed(() =>
+  navItems.filter((item) => !item.permission || userPerms.value.includes(item.permission)),
+)
 
 function handleLogout() {
   authStore.logout()
@@ -30,7 +42,7 @@ function handleLogout() {
 
     <nav class="flex flex-col gap-1 flex-1">
       <SidebarButton
-        v-for="item in navItems"
+        v-for="item in visibleNavItems"
         :key="item.to"
         :to="item.to"
         :icon="item.icon"
