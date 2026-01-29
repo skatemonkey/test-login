@@ -1,15 +1,22 @@
 import axios from 'axios'
 
-const apiClient = axios.create({
-  baseURL: 'http://localhost:5001/auth', // Change this
-})
+const BASE_URL = 'http://localhost:5001' // Change this
 
-apiClient.interceptors.request.use((config) => {
-  const token = localStorage.getItem('token')
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`
-  }
-  return config
-})
+function createApiClient(path: string) {
+  const client = axios.create({
+    baseURL: `${BASE_URL}/${path}`,
+  })
 
-export default apiClient
+  client.interceptors.request.use((config) => {
+    const token = localStorage.getItem('token')
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`
+    }
+    return config
+  })
+
+  return client
+}
+
+export const authClient = createApiClient('auth')
+export const auditClient = createApiClient('audit')

@@ -1,24 +1,21 @@
 <script setup lang="ts">
-import { nextTick, ref } from 'vue'
+import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { useAuthStore } from '@/stores/auth'
-import { authService } from '@/api/auth.service'
+import { authService } from '@/services/auth-service.ts'
+import { ROUTES } from '@/constants/routes.ts'
 
 const username = ref('')
 const password = ref('')
 const error = ref('')
 const loading = ref(false)
 const router = useRouter()
-const auth = useAuthStore()
 
 async function login() {
   loading.value = true
   error.value = ''
   try {
-    const { data } = await authService.login(username.value, password.value)
-    auth.setAuth(data.access_token, data.permissions)
-    await nextTick() // Wait for reactivity to update
-    await router.push('/')
+    await authService.login(username.value, password.value)
+    await router.push(ROUTES.HOME)
   } catch {
     error.value = 'Invalid credentials'
   } finally {

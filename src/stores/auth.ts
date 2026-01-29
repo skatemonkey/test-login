@@ -6,6 +6,10 @@ export const useAuthStore = defineStore('auth', () => {
     return localStorage.getItem('token')
   }
 
+  function getUserId() {
+    return localStorage.getItem('userId')
+  }
+
   function getPermissions(): string[] {
     const perms = localStorage.getItem('permissions')
     return perms ? JSON.parse(perms) : []
@@ -19,7 +23,8 @@ export const useAuthStore = defineStore('auth', () => {
     return !!localStorage.getItem('token')
   }
 
-  function setAuth(token: string, permissions: string[]) {
+  function setAuth(userId: number, token: string, permissions: string[]) {
+    localStorage.setItem('userId', String(userId))
     localStorage.setItem('token', token)
     localStorage.setItem('permissions', JSON.stringify(permissions))
   }
@@ -27,6 +32,7 @@ export const useAuthStore = defineStore('auth', () => {
   function logout() {
     localStorage.removeItem('token')
     localStorage.removeItem('permissions')
+    localStorage.removeItem('userId')
   }
 
   return { getToken, getPermissions, hasPermission, isAuthenticated, setAuth, logout }
