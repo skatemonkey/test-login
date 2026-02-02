@@ -6,4 +6,5 @@ export const ROUTES = {
   TABLE3: '/table3',
   TABLE4: '/table4',
   FORBIDDEN: '/403',
+  AUDIT_LOG: '/audit-log',
 } as const

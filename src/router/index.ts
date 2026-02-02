@@ -41,6 +41,10 @@ const router = createRouter({
       component: () => import('@/pages/ForbiddenPage.vue'),
       meta: { public: true },
     },
+    {
+      path: ROUTES.AUDIT_LOG,
+      component: () => import('@/pages/AuditLogPage.vue'),
+    },
   ],
 })
 

@@ -16,6 +16,7 @@ const navItems = [
   { to: ROUTES.TABLE2, icon: Table2Icon, label: 'Table 2', permission: PERM.PAGE2_VIEW },
   { to: ROUTES.TABLE3, icon: Table2Icon, label: 'Table 3', permission: PERM.PAGE3_VIEW },
   { to: ROUTES.TABLE4, icon: Table2Icon, label: 'Table 4', permission: PERM.PAGE4_VIEW },
+  { to: ROUTES.AUDIT_LOG, icon: Table2Icon, label: 'Table 4'},
 ]
 
 const userPerms = computed(
